@@ -42,7 +42,7 @@ void ricorsioneSuDirectory(char* name1, char* name2){
 		printf("Error1\n");
 		exit(1);
 	}
-	if((dp2 = opendir(name2)) == NULL){
+	if((dp2 = opendir(name2)) == NULL){	//apro il direttorio destinazione per verificare che non ci siano errori in apertura
 		printf("Error1\n");
 		exit(1);
 	}
@@ -81,7 +81,7 @@ void cutter(char* name, char* string){
 	while(n!=0){
 		if(name[i]=='/')
 			n--;
-		i++;
+		i++;			//una volta trovate tutte le / nel path, mi posiziono dopo l'ultima per creare il direttorio radice del nuovo albero
 	}
 	while(name[i]!='\0')
 		string[j++] = name[i++];
