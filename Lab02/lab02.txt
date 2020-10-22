@@ -1,0 +1,88 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 02
+--------------------------------------
+
+Esercizio 01
+Visualizzazione ricorsiva di un direttorio
+------------------------------------------
+
+Si scriva un programma in linguaggio C in grado di:
+- ricevere sulla riga di comando il path (assoluto o relativo)
+  di un albero di direttori
+- visualizzare *ricorsivamente" il contenuto di tale albero (i.e.,
+  tutti i file, i sotto-direttori, i file nei sotto-direttori,
+  etc.).
+
+Si compili in programma mediante gcc e ne si verifichi il
+funzionamento confrontandone i risultati con il comando di
+shell
+"ls -R"
+
+Suggerimenti
+------------
+
+- Scrivere una procedura ricorsiva che generalizzi la
+  visualizzazione non ricorsiva di un direttorio analizzata
+  a lezione
+- Fare attenzione alla gestione dei path dei direttori/file
+- Gestire esplicitamente i direttori
+  "." e ".."
+  per evitare ricorsioni infinite.
+
+
+
+Esercizio 02
+Compilazione e makefile
+-----------------------
+
+- Compilare il programma dell'esercizio precedente mediante
+  un Makefile contenente solo il target di compilazione.
+
+- Modificare il Makefile precedente aggiungendo il target
+  install, in grado di
+  a - creare un direttorio fratello a quello di lavoro e di
+      nome bin
+  b - spostare l'eseguibile creato in tale direttorio
+
+- Modificare il Makefile precedente aggiungendo il target clean,
+  che rimuove il file oggetto nel direttorio corrente
+
+- Modificare il Makefile precedente aggiungendo il target
+  distclean che richiama il target clean e cancella il
+  direttorio bin fratello di quello corrente e tutto il suo
+  contenuto
+
+- Si modifichi il Makefile precedente utilizzando delle variabili
+  per specificare il compilatore, le opzioni di compilazione
+  e eventualmente il nome del file.
+
+
+
+Esercizio 03
+Copia ricorsiva di un direttorio
+--------------------------------
+
+Si scriva un programma in linguaggio C in grado di:
+- ricevere sulla riga di comando due path (assoluti o
+  relativi)
+- copiare *ricorsivamente* il contenuto del direttorio
+  individuato dal primo path in un direttorio identico
+  con radice uguale al secondo path.
+
+Suggerimenti
+------------
+
+Si modifichi la procedura ricorsiva di visita di un albero
+di direttori creata all'esercizio numero 1.
+Durante la visita del direttorio sorgente creare una copia
+identica di ciascuna "entry"
+- ri-creandone i direttori (mediante system call mkdir) nel
+  direttorio destinazione
+- ri-copiando i file (mediante system call open, read,
+  write e close).
+Come in precedenza si presti attenzione alla gestione dei path
+(relativi o assoluti) all'interno del direttorio sorgente e
+del direttorio destinazione.
