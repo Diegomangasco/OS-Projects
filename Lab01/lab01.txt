@@ -1,0 +1,177 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 01
+--------------------------------------
+
+Esercizio 01
+Gestione file e direttori
+-------------------------
+
+- Parte 01
+  Creare il seguente albero di directory nella propria home:
+
+               soEx01
+                  |
+      ------------------------
+      |           |          |
+     src         bin       test
+      |                      |
+   ----------            -----------
+   |        |            |         |
+  include  lib         script   results
+
+- Parte 02
+  Scaricare dalla pagina web il file
+  lab01e01in.txt
+  copiarlo nella directory src, quindi, utilizzando tale direttorio
+  come direttorio corrente, copiarlo nei direttori test, script
+  e results utilizzando solo path assoluti.
+  Verificare che i file creati esistano, e controllarne i diritti,
+  Utilizzare i comandi more, less e cat per verificarne il contenuto.
+  Utilizzare il comando diff per verificare abbiano lo stesso contenuto.
+  Sempre senza cambiare il direttorio corrente, cancellare tutti i
+  file creati utilizzando solo path relativi.
+  Ripetere la stessa sequenza di operazioni dal direttorio padre
+  di src, ovvero soEx01.
+
+- Parte 03
+  Impartendo tutti i comandi dalla radice del proprio utente si
+  effettui quanto segue.
+  Copiare l'intero albero di direttori soEx01 in soEx01backup usando
+  il comando "cp" per file singoli e "mkdir" per i direttori.
+  Cancellare interamente soEx01 usando il comando "rm" per file
+  singoli e "rmdir" per i direttori.
+  Ripetere tanto l'operazione di copia quanto quella di cancellazione
+  utilizzando le versioni ricorsive dei comandi "cp" e "rm".
+
+- Parte 04
+  Verificare funzionamento e utilita' dei comandi:
+  pwd, wc, history
+
+  In caso di problemi ricordarsi del manuale in linea, ovvero che
+  man <comando>
+  fornisce informazioni su "comando".
+
+
+
+Esercizio 02
+Gestione permessi
+-----------------
+
+Verificare:
+- il proprio username e il gruppo di appartenenza.
+  E' possibile modificarli?
+- la disposizione della propria home all'interno della gerarchia del
+  file system del sistema utilizzato.
+- la struttura della home del sistema (e.g., quali sottodirettori
+  possiede, etc.)
+- i diritti di lettura e scrittura sui vari direttori. 
+  E' possibile modificare i diritti di accesso della propria home
+  directory?
+- verificare che cosa succede se si eliminano i diritti di lettura
+  o di esecuzione a un direttorio.
+  Per la modifica dei diritti si utilizzi sia la notazione ottale
+  (e.g., "654", sia quella a caratteri, "+uw-gx").
+
+Come e' possibile modificare nello stesso modo i diritti di accesso a
+*tutti* i file e direttori di un albero di direttori (ad esempio
+eliminare il diritto di lettura a tutti, user, group, other, del
+direttorio soEx01backup)?
+
+
+
+Esercizio 03
+Link e confronti tra file
+-------------------------
+
+- Scaricare dalla pagina web il file "lab01e03in.txt"
+- Nella stessa cartella in cui e' memorizzato il file creare:
+  - Una copia del file con nome "lab01e03in.copy"
+  - Un hard-link al file con nome "lab01e03in.hl"
+  - Un soft-link al file con nome "lab01e03in.sl"
+- Visualizzare le informazioni dei file mediante il comando
+  ls -l
+  - Cosa si puo' notare nella seconda colonna dell'output?
+  - Perche' i file non hanno tutti la stessa dimensione?
+- Verificare che il contenuto dei tre file creati sia lo stesso
+  del file originale mediante il comando diff.
+  - Perche' sebbene il file "lab01e03in.sl" abbia una dimensione
+    diversa dagli altri ha lo stesso contenuto?
+- Aprire il file "lab01e03in.txt" con un editor di testo a
+  piacere e modificarne il contenuto
+  - Come ci si aspetta che vengano modificate le informazioni
+    di dimensione e data di ultima modifica dei file?
+    Perche'?
+  - Verificare la risposta mediante il comando
+    ls -l
+  - Quali modifiche ci si aspetta riguardo al contenuto
+    dei file? Perche'?
+  - Verificare la risposta confrontando nuovamente i tre
+    file creati con l'originale mediante il comando diff
+- Rinominare il file "lab01e03in.txt" in "lab01e03in.backup"
+  - Che cosa si puo' notare ora dall'output del comando ls -l?
+  - Confrontare il contenuto del file "lab01e03in.backup" con
+    quello dei file "lab01e03in.hl" e "lab01e03in.sl".
+    Perche' nel secondo caso si ottiene un messaggio d'errore?
+- Creare un nuovo file vuoto di nome "lab01e03in.txt"
+  - Quale ci si aspetta sia diventato ora il contenuto del
+    file "lab01e03in.sl"? Perche'?
+  - Verificare mediante il comando cat
+
+Osservazione
+------------
+
+Il comando
+touch <nomefile>
+permette di aggiornare la data e ora di ultima modifica di un
+file.
+Nel caso in cui il file specificato non esista crea un file vuoto
+con quel nome.
+
+
+
+Esercizio 04
+Programmi C e compilazione
+--------------------------
+
+Svolgere i seguenti compiti utilizzando:
+- un editor a scelta
+- il compilatore GDB
+(in alternativa utilizzare un IDE a scelta, e.g., CodeBlocks).
+
+- Parte 01
+  Scrivere un programma in linguaggio C che, utilizzando le primitive
+  di I/O ANSI C (fgetc/fputc, fscanf/fprint, fget/fputs a scelta), sia
+  in grado di copiare un file di testo in file identico.
+  Il nome due file sia ricevuto sulla riga di comando, in modo che
+  il programma possa essere eseguito mediante un comando che specifica
+  tre parametri:
+  nomeEseguibile fileSorgente fileDestinazione
+
+- Parte 02
+  Compilare il file mediante gcc, eliminando eventuali warning.
+  Si provi la compilazione generando direttamente l'eseguibile oppure
+  prima il codice oggetto e poi l'eseguibile.
+
+  Si esegua il programma utilizzando il file lab01e01in.txt come file
+  di prova.
+  Si verifichi l'inserzione tra i parametri sia di path relativi sia
+  di path assoluti per la specifica dei file di I/O.
+  Verificare la corretta ri-copiatura del file (in un file identico)
+  mediante il comando di shell "diff".
+
+- Parte 03
+  Come si comporta il programma scritto se si cerca di copiare un
+  file binario?
+  Si utilizzi il file oggetto o il file eseguibile del programma
+  scritto per effettuare una verifica.
+  Provarne il corretto funzionamento mediante diff.
+  
+- Parte 04
+  Modificare il programma utilizzando
+  - le funzioni ANSI C fread e fwrite (opzionale)
+  e quindi
+  - le system call POSIX open, read, write e close.
+  Provarne il corretto funzionamento mediante diff.
