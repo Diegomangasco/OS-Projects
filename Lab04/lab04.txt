@@ -1,0 +1,102 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 04
+--------------------------------------
+
+
+
+Esercizio 01
+System call fork, exec, system
+-----------------------------
+
+Si riporti l'albero di generazione dei processi a seguito
+dell'esecuzione del seguente tratto di codice C.
+Si indichi inoltre che cosa esso produce su video e per quale
+motivo.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main () {
+  char str[100];
+  int i;
+
+  setbuf(stdout,0);
+  fork();
+  for (i=0; i<2; i++){
+    if (fork()!=0) {
+      sprintf (str, "echo system with i=%d", i);
+      system (str);
+    } else {
+      sprintf (str, "exec with i=%d", i);
+      execlp ("echo", "myPgrm", str, NULL);
+    }
+  }
+  return (0);
+}
+
+
+
+Esercizio 02
+System call fork, exec, system 
+------------------------------
+
+Si riporti l'albero di generazione dei processi a seguito
+dell'esecuzione del seguente tratto di codice C.
+Si indichi inoltre che cosa esso produce su video e per quale
+motivo.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main () {
+  int i = 0;
+
+  setbuf(stdout,0);
+  while (i<=2 && fork()){
+    if (!fork()) {
+      fprintf (stdout, "Running Exec ...");
+      execlp ("echo", "echo", "i*i", (char *) 0);
+    }
+    i++;
+    fprintf (stdout, "Running System ...");
+    system ("echo i+i");
+  }
+
+  return (0);
+} 
+
+
+
+Esercizio 03
+System call fork, wait, exec, system
+-----------------------------------
+
+Un file contiene delle stringhe logicamente raggruppate in
+insiemi distinti.
+Ogni insieme di stringhe indica un comando Unix/Linux e i
+relativi parametri.
+Ogni insieme e' terminato dalla stringa "end".
+Il seguente e' un esempio corretto di file:
+
+ls -laR end
+less mioFile.c end
+mkdir tmpDir end
+cp mioFile.c tmpDir end
+
+Si osservi che, se si preferisce, si puo' supporre la stringa
+"end" non sia presente nel file e sia invece il carattere di
+fine riga '\n' a indicare la fine delle stringhe associate
+a un certo comando.
+
+Scrivere un programma che, ricevuto il nome del file sulla
+riga di comando, esegua i comandi Unix/linux indicati
+nel file utilizzando:
+* la system call system, eseguendo un comando dopo l'altro
+* la system call exec eseguendo un comando ogni 3 secondi.
+  (e' facolta' decidere quale versione della exec
+  utilizzare).
