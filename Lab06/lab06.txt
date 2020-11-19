@@ -1,0 +1,141 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 06
+--------------------------------------
+
+
+Esercizio 01
+Segnali e pipe
+--------------
+
+Implementare la soluzione del laboratorio 5, esercizio 4 realizzando
+la comunicazione tra i due processi mediante una pipe.
+
+Ovvero, si realizzi un programma C che crea due figli, un produttore
+e un consumatore.
+Il figlio produttore legge da tastiera delle stringhe e le trasferisce
+al consumatore.
+Il figlio consumatore converte le stringhe in caratteri maiuscoli e
+le visualizza su standard output.
+L'introduzione della stringa "end" termina entrambi i processi figli
+nonche' il processo padre.
+Il trasferimento delle stringhe avvenga attraverso pipe.
+
+Osservazione
+------------
+
+La lunghezza delle stringhe trasferite nella pipe e' variabile e
+ignota a priori.
+E' quindi opportuno utilizzare un qualche meccanismo/protocollo di
+comunicazione.
+Ad esempio, e' possibile trasferire sulla pipe la dimensione della
+stringa prima della stringa stessa, utilizzando un numero costante
+di caratteri per codificare tale dimensione.
+
+
+
+Esercizio 02
+Pipe e sincronizzazione
+-----------------------
+
+Dato che la lettura da una pipe e' una operazione "bloccante" le
+pipe possono essere utilizzare per garantire una sincronizzazione
+"rigorosa" tra i processi.
+Piu' nel dettaglio, utilizzando due pipe tra due processi, il primo
+processo puo' attendere il secondo tramite una lettura sulla prima
+pipe e il secondo puo' attendere il primo tramite una lettura sulla
+seconda pipe.
+
+Utilizzando questo meccanismo, si realizzi il seguente procedimento.
+Un processo padre genera un processo figlio.
+Dopo la creazione entrambi i processi desiderano inviare messaggi su
+standard output (oppure su un file, a scelta) sincronizzandosi in
+modo che i messaggi siano (rigorosamente) alternati, ad esempio:
+
+I'm the father (PID=...)
+I'm the child  (PID=...)
+I'm the father (PID=...)
+I'm the child  (PID=...)
+I'm the father (PID=...)
+I'm the child  (PID=...)
+...
+
+Si noti che non si devono utilizzare sleep o pause, e non si deve
+scrivere codice soggetto a corse critiche.
+Il padre invii al figlio un messaggio di sincronizzazione particolare
+nel caso l'esecuzione debba essere terminata.
+
+
+
+Esercizio 03
+Comando find
+------------
+
+Eseguire le seguenti operazioni con il comando find:
+1. Visualizzare l'elenco di file dell'albero radicato in "/" che
+   abbiano estensione ".exe", dimensione maggiore di 1024 byte,
+   e siano eseguibili. 
+2. Stampare il path di tutti i file .c con una dimensione maggiore
+   di 100 bytes.
+3. Rintracciare tutti i file del proprio utente di tipo regolare,
+   che contengano nel nome almeno una "a" e almeno una "A" in
+   qualunque ordine (a...A oppure A..a).
+   Di tali file visualizzare le ultime 3 righe.
+4. Rintracciare tutti i file del proprio utente dal livello
+   di profondita' 3 al livello di profondita' 5, la cui dimensione
+   sia di almeno 250 byte, abbiano un nome di esattamente 4 caratteri,
+   Di tali file conteggiare il numero di caratteri.
+   Ripetere la stessa operazione conteggiando il numero di righe.
+5. Rintracciare tutti i file nel sistema con qualsiasi estensione di
+   3 caratteri, il cui nome inizi per "A" e abbiano 3 "z" consecutive
+   nel nome.
+   Di tali file create la versione compatta (si veda il manuale, man,
+   de comando gzip).
+6. Stampare il contenuto di tutti i direttori che si chiamano
+   bin a partire dal direttorio radice del file system.
+7. Cercare tutti i file ".c" degli altri utenti (escluso il
+   proprio!) appartenenti al proprio gruppo.
+8. Modificare i permessi di tutti i propri file nel primo livello
+   gerarchico del sotto-albero della radice, in modo che tutti
+   gli utenti diversi dal proprietario non abbiano alcun permesso.
+
+
+
+Esercizio 04
+Filtri
+------------
+
+Sia dato il file di nome
+lab06e04in.txt
+contenente l'elenco degli iscritti al corso di "Algorithms and programming"
+nell'anno accademico 2012-2013 (fonte: sito del Politecnico di Torino,
+servizi per gli studenti, iscritti ai corsi, con leggere modifiche manuali).
+
+Utilizzando i filtri noti (comandi sort, grep, etc.) e le pipe
+visualizzare a video:
+01. L'elenco degli stessi dati ordinati per numero di matricola inversa
+    (attenzione alla posizione dei numeri di matricola 89499 e 94799)
+02. L'elenco degli stessi dati ordinati per cognome.
+03. L'elenco degli studenti che hanno frequentato nel 2011-2012.
+04. L'elenco degli studenti informatici (INF1T3) ordinato per
+    numero di matricola.
+05. L'elenco degli studenti il cui numero di matricola
+    termina  per 2 oppure per 4 ordinato per cognome.
+06. L'elenco degli studenti TLC (TLC1T3), che devono ancora
+    frequentare, ordinato in ordine decrescente per numero
+    di matricola.
+07. L'elenco degli studenti in cui il nome contiene due
+    lettere "A" separate da due qualsiasi caratteri.
+08. L'elenco degli studenti in cui il nome contiene due
+    lettere "A" separate da due qualsiasi caratteri purche' le
+    "A" non inizino o finiscano il nome stesso.
+09. Prelevare solo i numeri di matricola dal file, eliminare tutte
+    le cifre uguali a 0, sostituire tutte le cifre uguali a 8 con
+    1, ordinare l'elenco risultante e eliminare tutti i duplicati.
+10. Effettuare le stesse operazioni del punto 9, ma visualizzare
+    solo le righe duplicate, effettuandone il conteggio.
+   
+
+
