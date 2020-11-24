@@ -1,0 +1,140 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 07
+--------------------------------------
+
+Esercizio 01
+Da ricorsione a concorrenza
+---------------------------
+
+Il programma c denominato
+lab07e01recursive.c
+riceve sulla riga di comando un valore intero n e, utilizzando
+la ricorsione (si veda la funzione binary), genera e visualizza
+tutti i numeri binari su n bit.
+
+Trasformare il programma da ricorsivo a concorrente, ovvero
+sostituire il procedimento ricorsivo con la generazione
+(mediante fork()) di un numero adeguato di processi in grado
+di visualizzare i numeri binari (in qualunque ordine).
+
+
+
+Esercizio 02
+Ordinamento di file
+-------------------
+
+Realizzare un programma concorrente con N thread in grado di
+ordinare dei file di ingresso, procedendo in parallelo sui
+diversi file, secondo le seguenti specifiche.
+
+Il programma (di nome pgrm) riceve 3 parametri sulla riga di
+comando
+pgrm n strA strB
+dove:
+- n e' un valore intero
+- strA e' una stringa che identifica il nome di n file di
+  ingresso, di nome
+  strA1.txt, strA2.txt, ..., strAn.txt
+- strB e' una stringa che identifica il nome di n file di
+  uscita, di nome
+  strB1.txt, strB2.txt, ..., strBn.txt
+
+I file di ingresso strA contengono:
+* sulla prima riga, il numero di interi memorizzati sulle
+  righe successive alla prima
+* sulle righe successive, tali interi.
+Il seguente e' un esempio corretto di file:
+
+5
+102
+99
+34
+234
+25
+
+Il programma, una volta generati gli n nomi dei due file di
+ingresso e di uscita, attiva n thread.
+Ciascun thread:
+- legge dal "proprio" file di ingresso il vettore di interi
+- ordina (con un algoritmo di ordinamento a scelta) tale
+  vettore in ordine numerico crescente
+- memorizza il risultato nel corrispondente file di uscita
+  ("personale").
+
+Si noti che il programma di fatto implementa il seguente
+grafo di precedenza:
+
+    Mi---------
+    /\        |  
+   /  \       |
+  R1    R2   ...
+  |     |
+  O1    O2   ...
+  |     |
+  W1    W2   ...
+   \  /
+    \/        |
+    Mf---------
+
+In cui:
+- Mi e Mf sono le operazioni iniziali e finali del main
+- I flussi Ri, Oi e Wi sono le esecuzioni dei vari thread,
+  ciascuno dei quali
+  - legge il proprio file di ingresso, Ri
+  - lo ordina, Oi
+  - lo memorizza sul file di uscita, Wi.
+
+
+
+Esercizio 03
+Ordinamento e fusione di file
+-----------------------------
+
+Modificare il programma precedente in modo che le n
+sequenze ordinate (lette da file) vengano "fuse" (merged)
+per generare un'unica sequenza ordinata.
+
+Piu' in dettaglio:
+1. ciascun thread legge e ordina i dati memorizzati in
+   un file (ma *non* ne effettua la scrittura sul file
+   di uscita)
+2. il main, una volta sganciati i thread, ne attende la
+   terminazione e a seguito della terminazione di uno
+   di essi effettua la "fusione" (merge) dei dati appena
+   ordinati con quelli "fusi" precedentemente
+4. una volta terminati tutti i thread e "fuse" tutte le
+   sequenze, il main si occupa di memorizzare l'elenco
+   completo dei dati ordinati su un (unico) file di
+   uscita.
+
+Tra i parametri di ingresso al programma, il terzo parametro
+indichi quindi il nome di un unico file di uscita.
+Per semplicita' (di allocazione delle strutture dati) e'
+possibile supporre che in tutti i file sia memorizzato
+lo stesso numero di valori e, eventualmente, che tale numero
+sia noto a priori.
+
+Suggerimenti
+------------
+
+Si utilizzi una matrice per la memorizzazione dei dati
+letti dai file di ingresso, dedicando una riga (o colonna)
+a ciascun file (oppure, in alternativa, un vettore di
+strutture con un campo vettoriale).
+Ogni thread manipoli esclusivamente la "propria" riga
+(o colonna) della matrice (o elemento del vettore)
+comune.
+Il main effettui la fusione delle sequenze ordinate a
+coppie:
+- alla terminazione del primo thread fondera' 0 (zero)
+  dati con n
+- alla terminazione del secondo thread fondera' n
+  vecchi dati con n nuovi dati
+- alla terminazione del terzo thread fondera' 2*n
+  vecchi dati con n nuovi dati
+- ...
+Il main utilizzi uno o piu' vettori di supporto
+per la fusione dei dati della matrice.
