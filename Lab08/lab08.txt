@@ -1,0 +1,131 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 08
+--------------------------------------
+
+Esercizio 01
+Script bash
+------------
+
+Realizzare uno script bash in grado di ricevere tre parametri
+sulla riga di comando:
+- il nome di una directory
+- il nome di una funzione
+- il nome di un file di uscita.
+
+Lo script deve:
+- ricercare all'interno di tutti i file nel sotto-albero
+  della directory specificata tutte le occorrenze della funzione
+- per ogni occorrenza deve memorizzare, nel file di uscita, il nome
+  del file, il numero della riga e la riga in cui la funzione
+  compare
+- nel file di uscita le righe memorizzate vanno ordinate in base
+  al nome del file (chiave primaria) e al numero di riga (chiave
+  secondaria).
+
+Si scrivano due versioni dello script:
+- versione 1: senza utilizzare il costrutto for-in
+- versione 2: utilizza il costrutto for-in.
+
+
+
+Esercizio 02
+Script bash
+------------
+
+Realizzare uno script bash che:
+- riceva in ingresso (da riga di comando oppure da tastiera)
+  il nome di un file
+- visualizzi (a video) il numero di caratteri della linea piu'
+  lunga e il numero di righe del file stesso.
+Si supponga che le righe del file non contengano spazi.
+
+
+
+Esercizio 03
+Script bash
+------------
+
+Realizzare uno script bash che
+- riceva in ingresso (da riga di comando oppure da tastiera)
+  il nome di un direttorio
+- rinomini tutti i file e tutti i direttori in esso
+  contenuti, in modo che i nuovi nomi siano identici a quelli
+  originali ma siano composti da sole lettere minuscole.
+
+
+
+Esercizio 04
+Script bash
+------------
+
+Un file di testo (ASCII) ha formato indefinito, ovvero include
+un numero indefinito di righe ciascuna delle quali comprende
+un numero indefinito di stringhe.
+
+Si scriva uno script bash in grado di visualizzare su standard
+output la frequenza assoluta di tutte le stringhe presenti nel
+file.
+
+Esempio
+-------
+
+Sia il file di ingresso il seguente:
+
+
+mi illumino di immenso
+illumino di immenso
+di immenso
+immenso
+
+Occorre visualizzare (in qualunque ordine)
+
+immenso 4
+di 3
+illumino 2
+mi 1
+
+Si supponga che il nome del file di ingresso sia indicato sulla
+riga di comando, ma nel caso e in cui non sia presente sulla riga
+di comando, venga letto da tastiera.
+
+Suggerimenti
+------------
+
+- si utilizzino due vettori, uno per la memorizzazione delle parole
+  e uno per la memorizzazione delle relative frequenza assolute.
+- si leggano le stringhe del file con il costrutto "for-in + cat".
+
+
+
+Esercizio 05
+Script bash
+------------
+
+Uno script bash riceve due parametri:
+* il nome di un processo
+* un intervallo di tempo.
+Esso deve verificare a intervalli di tempo pari a quello
+specificato se il processo indicato e' ancora presente nel
+sistema.
+Se il processo rimane nello stato Z per piu' di 5 verifiche
+successive, lo script lo deve terminare.
+
+Suggerimento
+------------
+
+Il comando
+ps -el
+fornisce un output simile al seguente
+
+UID  PID PPID F    CPU PRI NI RSS  S  ADDR    TTY TIME    CMD
+  0   1  0    4000 0   31  0   568 Ss 6fd9cd4 ??  0:00.20 /sbin/launchd
+  0  10  1    4000 0   31  0  1292 R+ 6fd9384 ??  0:00.59 /usr/libexec/kextd
+  0  11  1    4000 0   31  0  3412 Z  6fd982c ??  0:02.10 /bin/ls
+
+Opportunamente parsificato esso fornisce le informazioni necessarie
+per risolvere il problema indicato.
+Si noti che il carattere 'Z' nella colonna denominata S indica che il
+processo e' uno zombie.

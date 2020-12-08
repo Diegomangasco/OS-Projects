@@ -1,0 +1,10 @@
+./list2.txt
+./list.txt
+./es05.sh
+./es03.sh
+./es04.sh
+./es02.sh
+./provaEs04.txt
+./fileOutput.txt
+./es01.sh
+./lab08.txt
