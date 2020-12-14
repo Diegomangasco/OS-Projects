@@ -1,0 +1,30 @@
+La funzione atomica:
+
+int atomicIncrement (int *var) {
+  int tmp = *var;
+  *var = tmp + 1;
+  return (tmp);
+}
+
+puo' essere utilizzata come segue:
+
+typedef struct lock_s {
+  int tichekNumber;
+  int turnNumber;
+} lock_t;
+
+void init (lock_t lock) {
+  lock.ticketNumber = 0;
+  lock.turnNumber = 0;
+}
+
+void lock (lock_t lock) {
+  int myTurn = atomicIncrement (&lock.ticketNumber);
+  while (lock.turnNumber != myTurn);
+}
+
+void unlock (lock_t lock) {
+  atomicIncrement (&lock.turnNUmber);
+}
+
+

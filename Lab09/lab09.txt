@@ -1,0 +1,78 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 09
+--------------------------------------
+
+
+Esercizio 01
+------------
+
+Si supponga di avere a disposizione, al posto della funzione
+test-and-set oppure della funzione swap, la seguente funzione
+atomica:
+
+int atomicIncrement (int *var) {
+  int tmp = *var;
+  *var = tmp + 1;
+  return (tmp);
+}
+
+Utilizzarla funzione per scrivere le funzioni init, lock e
+unlock da inserire nel prologo e nell'epilogo di una
+sezione critica.
+
+Suggerimento:
+si utilizzino due variabili globali ticketNumber e turnNumber.
+La prima indica l'ordine di prenotazione per l'accesso alla
+sezione critica e la seconda il processo che ha il turno
+all'accesso.
+Gestire tali variabili con le funzioni di init, lock e unlock.
+
+
+
+Esercizio 02-04
+---------------
+
+Sia dato il seguente grafo di precedenza
+
+       A  <--------
+    /  |  \       ^
+   /   |   \      |
+  B    C    D     |
+  |   / \   |     |
+  |  /   \  |     |
+  | E    F  |     |
+  |  \   /  |     |
+  |   \ /   |     |
+  |    G    H     |
+   \   |   /      |
+    \  |  /       |
+       I  ---------
+
+in cui a ciascun vertice corrisponde un task
+(processo oppure thread) indipendente.
+Realizzarlo con le seguenti modalita' sempre
+utilizzando il numero minimo di semafori.
+
+Esercizo 02.
+Ciascun task corrisponde a un processo.
+Ogni processo viene (ri-)creato e distrutto a ogni
+iterazione del ciclo principale.
+I semafori sono realizzati tramite pipe.
+
+Esercizio 03.
+Ciascun task corrisponde a un thread.
+Ogni thread viene (ri-)creato e distrutto a ogni
+iterazione del ciclo principale.
+I semafori sono realizzati tramite libreria POSIX
+e tipi/funzioni sem_*.
+
+Esercizio 04.
+Ciascun task corrisponde a un thread.
+I thread sono tutti *ciclicli* e vengono
+creati e distrutti  una volta sola prima
+del ciclo principale.
+I semafori sono realizzati tramite libreria POSIX
+e tipi/funzioni sem_*.
