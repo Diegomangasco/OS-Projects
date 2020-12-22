@@ -1,0 +1,93 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 10
+--------------------------------------
+
+
+
+Esercizio 01
+------------
+
+Un file contiene un testo in formato ASCII di lunghezza indefinita,
+ma le cui righe hanno lunghezza massima uguale a 100 caratteri.
+
+Si scriva un programma concorrente multi-thread in grado di:
+
+- ricevere sulla riga di comando due stringhe.
+  La prima stringa specifica il nome di un file di ingresso.
+  La seconda stringa individua il nome di un file di uscita.
+  Il file di ingresso contiene il testo precedentemente specificato.
+
+- eseguire 3 thread:
+  - il primo thread, legge righe dal file di ingresso (una alla volta)
+  - il secondo thread, inverte ciascuna riga (l'ultimo carattere diventa
+    il primo e viceversa) e trasforma tutti i caratteri letterali in
+    maiuscoli
+  - il terzo thread, memorizza ciascuna riga trasformata dal secondo
+    thread nel file di uscita (in modo sequenziale).
+
+Tutti e 3 i thread sono ciclici e devono essere creati un'unica volta.
+Quando il primo thread individua la fine del file di ingresso, permetta al
+secondo e al terzo thread una terminazione ordinata e termini lui stesso.
+Si sincronizzino i thread con le primitive semaforiche sem_*.
+
+
+
+Esercizio 02
+------------
+
+Un file binario contiene terne di numeri
+c x n
+che individuano il monomio c*x^n, in cui c e x sono valori
+reali (float) e n e' un intero (int).
+
+Ad esempio la terna
+1.0 2.0 3
+indica il monomio 1.0*2.0^3 il cui valore e' 8.0.
+
+Le terne sono da considerarsi a gruppi di 3.
+Ciascuna terna di monomi appartiene allo stesso polinomio.
+
+Si scriva un programma concorrente multi-thread in grado di:
+
+- ricevere sulla riga di comando una stringa.
+  Tale stringa specifica il nome di un file di ingresso
+  contenente i record precedentemente specificati in formato
+  binario.
+
+- esegue 4 thread ciclici:
+  - il primo thread calcola il primo monomio di ciascun polinomio.
+  - il secondo thread calcola il secondo monomio di ciascun polinomio.
+  - il terzo thread calcola il terzo monomio di ciascun polinomio.
+  - il quarto thread effettua la somma dei 3 monomi e visualizza
+    (a video) il valore del polinomio.
+
+Tutti i thread sono ciclici e leggono da file solo le informazioni
+(monomi) di loro competenza (si eviti quindi che i primi 3 thread
+leggano tutti l'intero file di ingresso).
+
+Si supponga *non* esistano operazioni matematiche oltre le 4 principali.
+In altre parole tutti i thread calcolino i monomi
+c * x^n
+tramite moltiplicazione
+c * x * x * x * x ... n volte.
+
+I 4 thread terminino ordinatamente una volta raggiunta la fine del
+file.
+Il thread principale attenda i 4 eseguiti e termini esso stesso.
+
+Il file di ingresso si puo' supporre di formato corretto, ma
+se il numero di monomi memorizzati su file non e' multiplo di 3
+il valore dei monomi mancanti sia uguale a 0.
+
+Suggerimenti:
+- Si scriva un programma/funzione di conversione tra il formato ASCII e il
+  formato binario e se necessario (per verifica) un programma/funzione
+  che effettui la conversione opposta.
+- La conversione venga effettuata mediante serializzazione.
+- Si utilizzino le primitive di lettura scrittura fscanf/fprintf (sul file
+  di testo) e read/write (sul file binario).
+- Ciascun thread utilizzi lseek per effettuare la lettura dei soli
+  dati del monomio corretto.
